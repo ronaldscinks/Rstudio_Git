@@ -27,6 +27,12 @@ text(largest_islands[1:2], labels = names(largest_islands[1:2]), adj = c(-1,0.5)
 text(largest_islands[3:9], labels = names(largest_islands[3:9]), adj = c(-0.2,0.4))
 text(largest_islands[10], labels = names(largest_islands[10]), adj = c(-10.7,0.5))
 
+points(largest_islands[1], type ="p", pch = 16, col = "darkred" )
+points(largest_islands[9], type ="p", pch = 16, col = "black" )
+?points
+
+# the points are not working exactly as I would want to. 
+
 
 
 
