@@ -21,23 +21,75 @@ plot(largest_islands, main = "Land area of continents and islands",
      ylab = "Land area in  square miles")
 
 # adds text labels to a plot
-# adj = c(x,y)) <- position from the coordinates
-# x/y = 0.5 (middle)
-text(largest_islands[1:2], labels = names(largest_islands[1:2]), adj = c(-1,0.5))
-text(largest_islands[3:9], labels = names(largest_islands[3:9]), adj = c(-0.2,0.4))
-text(largest_islands[10], labels = names(largest_islands[10]), adj = c(-10.7,0.5))
+# pos = 1/2/3/4 <- position from the coordinates
+# 1 - below; 2 - to the left; 3 - above; 4 - to the right
+text(largest_islands, labels = names(largest_islands), pos = 3)
 
-points(largest_islands[1], type ="p", pch = 16, col = "darkred" )
-points(largest_islands[9], type ="p", pch = 16, col = "black" )
-?points
-
-# the points are not working exactly as I would want to. 
-# add something
+text(largest_islands[1], labels = names(largest_islands[1]), pos = 1)
 
 
+# to change the shape and the color of the points use points() function
+# where points(data, col = color, pch = shape)
+# pch = 19 - solid circle; pch = 20 bullet; pch = 21 filled circle; 
+# pch = 22 - filled square; pch = 23 - filled diamonds; pch = 24 - filled triangle point up etc....
 
+points(largest_islands, pch = 19, col = "#2f4f4f" )
 
 
 
 
+# plotting matrices
+?matplot
+
+# t(Salary) -> Data to be plotted
+# type = “b” -> Both line and points/ the type of the representation
+# pch -> kind of points used
+# col -> colours used 
+# lty - line type; lwd - line width
+# xlab - x axis label; ylab - y axis label
+matplot(t(Salary))
+        
+matplot(t(Salary), type = "b")
+
+matplot(t(Salary), type = "b", pch = c(15, 16,17,18,24,25,1, 2, 0, 23))
+
+matplot(t(Salary), type = "b", pch = c(15, 16,17,18,24,25,1, 2, 0, 23),
+        col = c("red", "blue", "green", "yellow", "orange", "pink", "black",
+                "violet", "lightblue", "brown" ), 
+        lty = 1, lwd = 2,
+        xlab = "Season", ylab = "Salary",
+        xaxt = "n")
+
+# to set a legend use legend()
+# first argument is the position (e.g. topleft, bottom right, center etc)
+#inset- distance(s) from the margins as a fraction of the plot region
+
+legend("topright", inset = 0.01, legend = Players, 
+       col = c("red", "blue", "green", "yellow", 
+               "orange", "pink", "black","violet", "lightblue", "brown"), 
+        pch = c(15, 16,17,18,24,25,1, 2, 0, 23))
+# to change axis parameters use axis() function
+# first argument is position (1- below; 2- left; 3 - above; 4 - right)
+
+axis(1, at = 1:length(colnames(Salary)), labels = colnames(Salary))
+axis(2)
+?legend
+
+# How to show a matrix with the top 3 players in the last 5 seasons?
+# 
+
+
+matplot(t(Salary[1:3,6:10]), type = "b", pch = 21:23,
+        col = c("red", "blue", "green"), 
+        lty = 1, lwd = 2,
+        xlab = "Season", ylab = "Salary",
+        xaxt = "n")
+
+legend("topleft", inset = 0.01, legend = Players[1:3], 
+       col = c("red", "blue", "green"), 
+       pch = 21:23,
+       lwd = 2)
+axis(1, at = 1:5, labels = colnames(Salary)[6:10])
+
+# try to to do just Kevin Durant and seasons 2006 - 2010.
 

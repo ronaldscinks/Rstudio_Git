@@ -32,9 +32,9 @@ worst_month_t <- profit_after_tax_t == min(profit_after_tax_t)
 
 
 
-  profit_t == profit
-  profit_after_tax_t == profit_after_tax
-  profit_margin_t == profit_margin
+  isTRUE(all.equal(sum(profit_t - profit),0))
+  isTRUE(all.equal(sum(profit_after_tax_t- profit_after_tax), 0))
+  isTRUE(all.equal(sum(profit_margin_t- profit_margin), 0))
   good_months_t == good_months
   bad_months_t == bad_months
   best_month_t == best_month
