@@ -32,6 +32,7 @@ points(largest_islands[9], type ="p", pch = 16, col = "black" )
 ?points
 
 # the points are not working exactly as I would want to. 
+# add something
 
 
 
