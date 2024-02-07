@@ -91,5 +91,21 @@ legend("topleft", inset = 0.01, legend = Players[1:3],
        lwd = 2)
 axis(1, at = 1:5, labels = colnames(Salary)[6:10])
 
-# try to to do just Kevin Durant and seasons 2006 - 2010.
+# TASK nr.1. try to to do just Kevin Durant and seasons 2006 - 2010.
 
+
+
+# TASK nr.2 use the expenses and revenue
+# try to recreate the image on ortus (see chart to recreate on ORTUS)
+revenue <- c(14574.49, 7606.46, 8611.41, 9175.41, 8058.65, 8105.44, 11496.28, 9766.09, 10305.32, 14379.96, 10713.97, 15433.50)
+expenses <- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 3285.73, 5821.12, 6976.93, 16618.61, 10054.37, 3803.96)
+fin_data <- rbind(revenue, expenses)
+colnames(fin_data) <- month.name
+matplot(t(fin_data), type = "b", lty = "solid", pch = 21:22, xaxt = "n", 
+        col = c("darkorange", "darkviolet"),
+        xlab = "Months", ylab = "Euros")
+legend("bottomleft", inset = 0.01, legend=rownames(fin_data), 
+       col = c("darkorange", "darkviolet"), pch = 21:22, lwd = 2)
+axis(1, at = 1:length(colnames(fin_data)), labels = colnames(fin_data), col.axis = "darkorange")
+title(main = "Rvenue and Expenses across the year", col.main = "darkorange" )
+       
