@@ -1,6 +1,5 @@
 # Plots
 
-
 ?islands     # built in vector of the areas in thousands of square miles 
 # of the landmasses which exceed 10,000 square miles.
 
@@ -33,7 +32,7 @@ text(largest_islands[1], labels = names(largest_islands[1]), pos = 1)
 # pch = 19 - solid circle; pch = 20 bullet; pch = 21 filled circle; 
 # pch = 22 - filled square; pch = 23 - filled diamonds; pch = 24 - filled triangle point up etc....
 
-points(largest_islands, pch = 19, col = "#2f4f4f" )
+points(largest_islands, pch = 15, col = "#2f4f4f" )
 
 
 
@@ -47,24 +46,29 @@ points(largest_islands, pch = 19, col = "#2f4f4f" )
 # col -> colours used 
 # lty - line type; lwd - line width
 # xlab - x axis label; ylab - y axis label
-matplot(t(Salary))
+matplot(t(Salary), type = "b", pch = c(1, 2, 6, 16, 20, 32),
+        col = c("red", "blue", "green", "yellow", "orange", "pink", "black",
+                "violet", "lightblue", "brown" ),
+        lty = 1, lwd = 2,
+        xlab = "Season", ylab = "Salary",
+        xaxt = "n")
         
 matplot(t(Salary), type = "b")
 
 matplot(t(Salary), type = "b", pch = c(15, 16,17,18,24,25,1, 2, 0, 23))
 
-matplot(t(Salary), type = "b", pch = c(15, 16,17,18,24,25,1, 2, 0, 23),
+matplot(t(Salary)[1:3,], type = "b", pch = c(15, 16,17,18,24,25,1, 2, 0, 23),
         col = c("red", "blue", "green", "yellow", "orange", "pink", "black",
                 "violet", "lightblue", "brown" ), 
         lty = 1, lwd = 2,
         xlab = "Season", ylab = "Salary",
         xaxt = "n")
-
+axis(1, )
 # to set a legend use legend()
 # first argument is the position (e.g. topleft, bottom right, center etc)
 #inset- distance(s) from the margins as a fraction of the plot region
 
-legend("topright", inset = 0.01, legend = Players, 
+legend("topleft", inset = 0.01, legend = rownames(Salary), 
        col = c("red", "blue", "green", "yellow", 
                "orange", "pink", "black","violet", "lightblue", "brown"), 
         pch = c(15, 16,17,18,24,25,1, 2, 0, 23))
@@ -84,28 +88,18 @@ matplot(t(Salary[1:3,6:10]), type = "b", pch = 21:23,
         lty = 1, lwd = 2,
         xlab = "Season", ylab = "Salary",
         xaxt = "n")
-
-legend("topleft", inset = 0.01, legend = Players[1:3], 
+axis(1, at = 1:5, labels = colnames(Salary)[6:10])
+legend("topleft", inset = 0.01, legend = rownames(Salary)[1:3], 
        col = c("red", "blue", "green"), 
        pch = 21:23,
        lwd = 2)
-axis(1, at = 1:5, labels = colnames(Salary)[6:10])
 
+mtext("NBA player salaries", 2, 0, col = "red" )
+title(main = "NBA player statistics", 
+      sub = "for seasons 2005-2014", 
+      col.main = "green", col.sub ="red")
 # TASK nr.1. try to to do just Kevin Durant and seasons 2006 - 2010.
 
 
 
-# TASK nr.2 use the expenses and revenue
-# try to recreate the image on ortus (see chart to recreate on ORTUS)
-revenue <- c(14574.49, 7606.46, 8611.41, 9175.41, 8058.65, 8105.44, 11496.28, 9766.09, 10305.32, 14379.96, 10713.97, 15433.50)
-expenses <- c(12051.82, 5695.07, 12319.20, 12089.72, 8658.57, 840.20, 3285.73, 5821.12, 6976.93, 16618.61, 10054.37, 3803.96)
-fin_data <- rbind(revenue, expenses)
-colnames(fin_data) <- month.name
-matplot(t(fin_data), type = "b", lty = "solid", pch = 21:22, xaxt = "n", 
-        col = c("darkorange", "darkviolet"),
-        xlab = "Months", ylab = "Euros")
-legend("bottomleft", inset = 0.01, legend=rownames(fin_data), 
-       col = c("darkorange", "darkviolet"), pch = 21:22, lwd = 2)
-axis(1, at = 1:length(colnames(fin_data)), labels = colnames(fin_data), col.axis = "darkorange")
-title(main = "Rvenue and Expenses across the year", col.main = "darkorange" )
-       
+
