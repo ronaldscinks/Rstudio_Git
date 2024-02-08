@@ -63,7 +63,6 @@ matplot(t(Salary)[1:3,], type = "b", pch = c(15, 16,17,18,24,25,1, 2, 0, 23),
         lty = 1, lwd = 2,
         xlab = "Season", ylab = "Salary",
         xaxt = "n")
-axis(1, )
 # to set a legend use legend()
 # first argument is the position (e.g. topleft, bottom right, center etc)
 #inset- distance(s) from the margins as a fraction of the plot region
@@ -76,7 +75,8 @@ legend("topleft", inset = 0.01, legend = rownames(Salary),
 # first argument is position (1- below; 2- left; 3 - above; 4 - right)
 
 axis(1, at = 1:length(colnames(Salary)), labels = colnames(Salary))
-axis(2)
+
+
 ?legend
 
 # How to show a matrix with the top 3 players in the last 5 seasons?
