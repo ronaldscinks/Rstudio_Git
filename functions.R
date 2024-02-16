@@ -39,57 +39,26 @@ add.percent(y)
 
 
 ####### Example
-my.plot <-function(data2){
-  data <- t(data2)
-  columns = ncol(data)
-  if (is.null(nrow(data))){
-    rows <- 1
-    data_names <- names(data)
-  } else {
-      rows <- nrow(data)
-      data_names <- colnames(data)
-    }
-
-  colors = c("red", "blue", "green", "yellow", 
-               "orange", "pink", "black","violet", "lightblue", "brown")
-  shapes = c(15, 16,17,18,24,25,1, 2, 0, 23)
+my.plot <- function(mydata,players = 1:10, years = 1:10 ){
   
-  matplot(data, type = "b", pch = shapes,
-        col = colors, 
-        lty = 1, lwd = 2,
-        xlab = "Season",ylab = deparse(substitute(data2)),
-        xaxt = "n")
-axis(1, at = 1:rows, labels = rownames(data))
-legend("topleft", inset = 0.01, legend = data_names, 
-       col = colors, 
-       pch = shapes,
-       lwd = 2)
+  matplot(t(mydata[players,years, drop = F]), type= "b", pch= 15:18, col=c(1:4,6) )
+  legend("bottomright", inset=0.01, legend = Players[players], col = c(1:4,6), pch=15:18, horiz = F, ncol = round(length(players)/2,0), cex = 0.6)
+}
+### Task nr. 1 
+## using the above my.plot function plot the following:
+#(1) points per game (points/games)
+#(2) accuracy (fieldgoals/fieldgoal attempts) for the top five players
+#(3) minutes played for the top five players for the last 5 seasons (2009-2014)
 
-title(main = "NBA player statistics", 
-      col.main = "green")
-}   
 
-my.plot(Salary)
 
-### Task nr.1 
+
+### Task nr.2
 # write a function that returns TRUE if it is an even number 
 # if not not an even number it should return FALSE
 # HINT - use the modulo operator: %%
 # 1.2 add a parameter by which it would be possible to change the return value
 # from TRUE/FALSE to "even"/"odd"
 
-check.even <- function(x, output = 1){
-  if (output == 1){
-  x%%2 == 0
-  } else if (output == 2) {
-    if (x%%2 == 0){
-      "even"
-    } else {
-      "odd"
-    }
-  } else{
-    "output = 1 returns TRUE/FALSE; output = 2 returns even/odd"
-  }
-}
 
 

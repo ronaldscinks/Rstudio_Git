@@ -56,3 +56,11 @@ levels(df$Income.Group)
 df$dummy.variable <- df$Internet.users > mean(df$Internet.users)
 
 
+### removing columns from a df
+
+df$dummy.variable <- NULL
+df <- df[,-ncol(df)]
+
+### TASK nr.2 
+#### add
+
