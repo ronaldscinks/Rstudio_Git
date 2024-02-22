@@ -23,7 +23,7 @@ regions <- data.frame(cbind(Countries_Dataset,Regions_Dataset))
 View(regions)
 
 df <- merge(dbase,regions, by.x = "Country.Name", by.y = "Countries_Dataset")
-
+View(df)
 #changing a column name
 names(df)[6] <- "region"
 
@@ -38,7 +38,6 @@ df$Income.Group <- factor(df$Income.Group,
 levels(df$Income.Group)
 
 # task nr.1. change the region column to be a factor (Do not assign levels!)
-
 
 
 
@@ -61,6 +60,17 @@ df$dummy.variable <- df$Internet.users > mean(df$Internet.users)
 df$dummy.variable <- NULL
 df <- df[,-ncol(df)]
 
+
+# doing statistics across different groups
+table(df$region)
+table(df$Income.Group)
+mean(df$Birth.rate)
+aggregate(df$Birth.rate, by = list(df$region), FUN = mean)
+
+
 ### TASK nr.2 
-#### add
+#### (1) add a column that countries above/below average birth.rate ("low"/"high")
+### (2) calculate the internet users for low/high birth rate countries
+## (3) calculate for each region how many low/high birth rate countries there are 
+# (4) calculate internet users for Africa and low income group
 
