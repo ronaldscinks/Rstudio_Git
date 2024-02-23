@@ -8,11 +8,11 @@ View(data)
 
 # add importance variable
 data$importance_manipulation <- ifelse(data$chooserandom_1 > 3, 1,0)
-# removes me from the sample
-data <- data[-c(1, 3,4,17,18),] 
+# removes not valid participants (e.g. me) from the sample
+data <- data[-c(1, 3,4,15,18,19),] 
 
 # removes unnecassary string data
-data <- data[, -c(1, 28, 30, 48, 66, 84, 102, 120, 157:159)] 
+data <- data[, -c(1, 28, 30, 48, 66, 84, 102, 120, 167, 168)] 
 
 # removes SE_p/N/N columns
 
@@ -74,12 +74,23 @@ data$expl_skill <- (data$real_life_questions_7 + data$real_life_questions_8 +
 data %>%
   group_by(chooserandom_1) %>%
     summarize_at(vars(score_2), 
-                 list(mean_liking = mean))
+                 list(score2 = mean))
 
 
 
-score <- data[, c(26,41,43,45, 47, 49, 51)]
+score <- data[, c(26, 64, 45,48, 51, 54, 57, 60)]
 View(score)
+score$group[score$chooserandom_1 == 1 | score$chooserandom_1 == 4] <- 1 
+score$group[score$chooserandom_1 == 2 | score$chooserandom_1 == 5] <- 2
+score$group[score$chooserandom_1 == 3 | score$chooserandom_1 == 6] <- 3 
+
+x <- aggregate(score$score_1, by = list(score$group), FUN = mean)
+x <- merge(x, y, x.by = "Group.1", y.by = "Group.1" )
+y <- aggregate(score$score_2, by = list(score$group), FUN = mean)
+aggregate(score$score_3, by = list(score$group), FUN = mean)
+aggregate(score$score_4, by = list(score$group), FUN = mean)
+aggregate(score$score_5, by = list(score$group), FUN = mean)
+aggregate(score$score_6, by = list(score$group), FUN = mean)
 numb <- names(score)[2:7]
 temp <- score %>% pivot_longer(2:7, cols_vary = "slowest",
                        names_to = "trial",
