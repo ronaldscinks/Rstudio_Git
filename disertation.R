@@ -85,28 +85,54 @@ score$group[score$chooserandom_1 == 2 | score$chooserandom_1 == 5] <- 2
 score$group[score$chooserandom_1 == 3 | score$chooserandom_1 == 6] <- 3 
 
 x <- aggregate(score$score_1, by = list(score$group), FUN = mean)
-x <- merge(x, y, x.by = "Group.1", y.by = "Group.1" )
-y <- aggregate(score$score_2, by = list(score$group), FUN = mean)
-aggregate(score$score_3, by = list(score$group), FUN = mean)
-aggregate(score$score_4, by = list(score$group), FUN = mean)
-aggregate(score$score_5, by = list(score$group), FUN = mean)
-aggregate(score$score_6, by = list(score$group), FUN = mean)
-numb <- names(score)[2:7]
-temp <- score %>% pivot_longer(2:7, cols_vary = "slowest",
-                       names_to = "trial",
-                       values_to = "score"
-                       )
-temp$trial[temp$trial == "score_1"] <- 1
-temp$trial[temp$trial == "score_2"] <- 2
-temp$trial[temp$trial == "score_3"] <- 3
-temp$trial[temp$trial == "score_4"] <- 4
-temp$trial[temp$trial == "score_5"] <- 5
-temp$trial[temp$trial == "score_6"] <- 6
+x2 <- aggregate(score$score_2, by = list(score$group), FUN = mean)
+x3 <- aggregate(score$score_3, by = list(score$group), FUN = mean)
+x4 <- aggregate(score$score_4, by = list(score$group), FUN = mean)
+x5 <- aggregate(score$score_5, by = list(score$group), FUN = mean)
+x6 <- aggregate(score$score_6, by = list(score$group), FUN = mean)
 
-#aggregate(score ~ trial, data = temp,
- #         FUN = mean) %>%
-  
-  ggplot(temp, aes(x = trial, y = score))+
+scores_by_group <- data.frame(cbind(x[,2],x2[,2],x3[,2],x4[,2], x5[,2], x6[,2]))
+scores_by_group$group <- c(1,2,3)
+
+scores_long <- scores_by_group %>% pivot_longer(1:6, cols_vary = "slowest",
+                                                names_to = "trial",
+                                                values_to = "score"
+                                                )
+
+
+scores_long$condition <- 0
+
+ scores_long$condition[
+   (scores_long$group == 1 & (scores_long$trial == "X2" | scores_long$trial == "X3") | 
+     (scores_long$group == 2 & scores_long$trial == "X6") |
+      scores_long$group == 3 & (scores_long$trial == "X4" | scores_long$trial == "X5")
+      )] <- "real"
+
+ scores_long$condition[
+   (scores_long$group == 1 & (scores_long$trial == "X4" | scores_long$trial == "X5") | 
+      (scores_long$group == 2 & (scores_long$trial == "X2"| scores_long$trial== "X3")) |
+      scores_long$group == 3 & scores_long$trial == "X6"
+   )] <- "pos"
+
+ 
+ scores_long$condition[
+   scores_long$trial == "X1"
+   ] <- "first"
+ 
+ scores_long$condition[scores_long$condition == 0] <- "neg"
+ 
+ scores_long$condition <- factor(scores_long$condition,
+                                 levels = c("first",
+                                 "neg", "real", "pos"))
+
+ggplot(scores_long, aes(condition, score))+
   geom_boxplot()
-  
 
+
+
+x <- aggregate(score$score_1, by = list(score$group, score$importance_manipulation), FUN = mean)
+x2 <- aggregate(score$score_2, by = list(score$group,score$importance_manipulation), FUN = mean)
+x3 <- aggregate(score$score_3, by = list(score$group,score$importance_manipulation), FUN = mean)
+x4 <- aggregate(score$score_4, by = list(score$group,score$importance_manipulation), FUN = mean)
+x5 <- aggregate(score$score_5, by = list(score$group,score$importance_manipulation), FUN = mean)
+x6 <- aggregate(score$score_6, by = list(score$group,score$importance_manipulation), FUN = mean)
