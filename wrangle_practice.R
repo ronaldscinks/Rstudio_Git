@@ -3,6 +3,14 @@ library(nycflights13)
 library(tidyverse)
 
 
+# check out -> janitor::clean_names(), if need a large amount of column names to
+# be changed
+
+# filter <- filters rows
+# arrange <- allows to sort rows
+#count <- counts the amount of unique rows (combinations)
+
+
 View(flights)
 
 
@@ -60,6 +68,91 @@ flights |>
          .keep = "used"
          )
 
+flights |> 
+  select(year, month, day)
+
+
+flights |> 
+  select(year:day)
+
+flights |> 
+  select(!year:day)
+
+flights |>
+  select(where(is.character))
+
+# the new name is on the left
+flights |> 
+  select(tail_num = tailnum)
+
+flights|>
+  rename(tail_num = tailnum)
+
+flights |> 
+  relocate(time_hour, air_time)
+
+flights |> 
+  relocate(year:dep_time, .after = time_hour)
+flights |> 
+  relocate(starts_with("arr"), .before = dep_time)
+
+flights |> 
+  select(dep_time, sched_dep_time, dep_delay)
+
+flights |>
+  select(4, 6,7, 9)
+
+variables <- c("year", "month", "day", "dep_delay", "arr_delay")
+flights |>
+  select(any_of(variables))
+
+flights |>
+  select(contains("TIME"))
+
+flights |> 
+  rename(air_time_min = air_time) |>
+    relocate(air_time_min)
+
+
+flights |> 
+  group_by(month) |> 
+    summarize(
+      avg_delay = mean(dep_delay, na.rm = TRUE),
+      n = n()
+      )
+
+flights |> 
+  group_by(dest) |> 
+    slice_max(arr_delay, n = 1) |> 
+      relocate(dest)
+
+
+flights |> 
+  group_by(carrier, origin) |> 
+    slice_max(dep_delay, n = 1) |> 
+      relocate(carrier, origin) |> 
+        ungroup() |> 
+        summarize(n(), .by = c(carrier), sort = TRUE)
+
+flights |> 
+  group_by(dest) |> 
+    slice_max(dep_delay, n = 1) |> 
+      relocate(dest)
+
+flights |> 
+ggplot(aes(dep_time, dep_delay))+
+  geom_point()
+
+    
+
+  min(flights$dep_delay, na.rm = TRUE)
+  max(dep_delay)
+  min(dep_time)
+  max(dep_time)
+
+
+View(flights)
 
 
 
+                  
