@@ -3,7 +3,7 @@ library(tidyr)
 library(psych)
 library(ggplot2)
 
-data <- read.csv(file.choose())
+data <- read.csv("pilot_dissertation.csv")
 View(data)
 
 # add importance variable
